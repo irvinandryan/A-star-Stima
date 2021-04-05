@@ -43,4 +43,14 @@ public class Graph {
             node.nodeInfo();
         }
     }
+
+    public Node findNode(String name){
+        for (Node node : nodeList) {
+            if (node.getName() == name)
+            {
+                return node;
+            }
+        }
+        return null;
+    }
 }

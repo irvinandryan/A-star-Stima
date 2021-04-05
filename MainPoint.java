@@ -11,7 +11,6 @@ public class MainPoint {
         B.printPoint();
         C.printPoint();
 
-        // A.setNAME("Surabaya");
         A.setX(5);
         A.setY(-7);
         A.printPoint();
@@ -21,7 +20,6 @@ public class MainPoint {
         System.out.println(A.getY());
         System.out.println(B.getX());
         System.out.println(C.getY());
-        // System.out.println(A.getNAME());
 
         System.out.println(A.getEucledianDistance(B));
         System.out.println(B.getEucledianDistance(A));

@@ -6,6 +6,7 @@ public class Node {
     private Point coordinate;
     private int neighborCount;
     private boolean isVisited;
+    public Node parent;
 
     public Node(String name, int x, int y){
         this.coordinate = new Point(x, y);
