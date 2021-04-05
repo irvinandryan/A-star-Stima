@@ -34,7 +34,7 @@ public class Graph {
 
     private void addNeighbor(Node n1, Node n2) {
         if (!n1.getNeighbors().contains(n2)) {
-            n1.addEdge(n2);
+            n1.addEdge(n2,n2.getCoordinate().getEucledianDistance(n1.getCoordinate()));
         }
     }
 
@@ -52,5 +52,45 @@ public class Graph {
             }
         }
         return null;
+    }
+
+    public void AStar(Node start, Node target){
+        PriorityQueue<Node> openList = new PriorityQueue<Node>();
+        start.gn = Double.valueOf(0);
+        start.fn = start.gn + start.hn(target);
+        openList.add(start);
+
+        while (!openList.isEmpty()){
+            Node current = openList.peek();
+            if (current.getName() == target.getName()) {
+                //solution = current
+                return;
+            }
+
+            for (Pair<Node,Double> neighbor : current.getNeighbors()) {
+                Node nextNode = neighbor.getFirst();
+                double newGn = current.gn.doubleValue() + neighbor.getSecond().doubleValue();
+
+                if (!openList.contains(nextNode) && !nextNode.getIsVisited()) {
+                    nextNode.pred = current;
+                    nextNode.gn = Double.valueOf(newGn);
+                    nextNode.fn = nextNode.gn + nextNode.hn(target);
+                    openList.add(nextNode);
+                } else {
+                    if(newGn < nextNode.gn.doubleValue()){
+                        nextNode.pred = current;
+                        nextNode.gn = Double.valueOf(newGn);
+                        nextNode.fn = nextNode.gn + nextNode.hn(target);
+
+                        if(nextNode.getIsVisited()){
+                            nextNode.setIsVisited(false);
+                            openList.add(nextNode);
+                        }
+                    }
+                }
+            }
+            openList.remove(current);
+            current.setIsVisited(true);
+        }
     }
 }

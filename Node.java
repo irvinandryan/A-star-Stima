@@ -1,23 +1,26 @@
 import java.util.*;
 
 public class Node {
-    private List<Node> neighbors;
+    private List<Pair<Node,Double>> neighbors;
     private String name;
     private Point coordinate;
     private int neighborCount;
     private boolean isVisited;
-    public Node parent;
+    public Node pred;
+    public Double fn;
+    public Double gn;
 
     public Node(String name, int x, int y){
         this.coordinate = new Point(x, y);
-        this.neighbors = new ArrayList<Node>();
+        this.neighbors = new ArrayList<Pair<Node,Double>>();
         this.name = name;
         this.neighborCount = 0;
         this.isVisited = false;
+        this.pred = null;
     }
 
     /***** GETTER/SETTER *****/
-    public List<Node> getNeighbors() {
+    public List<Pair<Node,Double>> getNeighbors() {
         return this.neighbors;
     }
 
@@ -51,21 +54,29 @@ public class Node {
     }
 
     /***** METHODS *****/
-    public void addEdge(Node n) {
-        this.neighbors.add(n);
+    public void addEdge(Node n, Double w) {
+        this.neighbors.add(new Pair<Node,Double>(n, w));
         this.neighborCount++;
     }
 
     public void removeEdge(Node n) {
-        this.neighbors.remove(n);
-        this.neighborCount--;
+        for (Pair<Node,Double> pair : neighbors) {
+            if (pair.getFirst().getName() == n.getName()){
+                this.neighbors.remove(pair);
+                this.neighborCount--;
+            }
+        }
     }
 
     public void nodeInfo() {
         System.out.printf("Tetangga dari %s adalah", this.name);
-        for (Node node : this.neighbors) {
-            System.out.printf(" %s", node.getName());
+        for (Pair<Node,Double> pair : neighbors) {
+            System.out.printf(" %s", pair.getFirst().getName());
         }
         System.out.println("");
+    }
+
+    public double hn(Node target){
+        return this.getCoordinate().getEucledianDistance(target.getCoordinate());
     }
 }
