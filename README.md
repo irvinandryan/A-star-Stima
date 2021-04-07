@@ -13,7 +13,7 @@ Algoritma A* adalah salah satu algoritma path finding. Pada program ini, algorit
 
 ## Setup
 * Clone repository ini ke local
-* Buka file solution AStarStima menggunakan Visutal Studio
+* Buka file solution AStarStima menggunakan Visual Studio
 * Build programnya
 
 ## How to run
